@@ -3,6 +3,14 @@
   "version": 1,
   "targets": {
     "UAP,Version=v10.0": {
+      "Chilkat.uwp/9.5.0.62": {
+        "compile": {
+          "lib/uap10.0/Chilkat.winmd": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Chilkat.winmd": {}
+        }
+      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -1538,6 +1546,17 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
+      "Chilkat.uwp/9.5.0.62": {
+        "compile": {
+          "lib/uap10.0/Chilkat.winmd": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Chilkat.winmd": {}
+        },
+        "native": {
+          "runtimes/win10-arm/native/Chilkat.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -3163,6 +3182,17 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
+      "Chilkat.uwp/9.5.0.62": {
+        "compile": {
+          "lib/uap10.0/Chilkat.winmd": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Chilkat.winmd": {}
+        },
+        "native": {
+          "runtimes/win10-arm/native/Chilkat.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -4760,6 +4790,17 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
+      "Chilkat.uwp/9.5.0.62": {
+        "compile": {
+          "lib/uap10.0/Chilkat.winmd": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Chilkat.winmd": {}
+        },
+        "native": {
+          "runtimes/win10-x64/native/Chilkat.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -6390,6 +6431,17 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
+      "Chilkat.uwp/9.5.0.62": {
+        "compile": {
+          "lib/uap10.0/Chilkat.winmd": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Chilkat.winmd": {}
+        },
+        "native": {
+          "runtimes/win10-x64/native/Chilkat.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -7987,6 +8039,17 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
+      "Chilkat.uwp/9.5.0.62": {
+        "compile": {
+          "lib/uap10.0/Chilkat.winmd": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Chilkat.winmd": {}
+        },
+        "native": {
+          "runtimes/win10-x86/native/Chilkat.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -9617,6 +9680,17 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
+      "Chilkat.uwp/9.5.0.62": {
+        "compile": {
+          "lib/uap10.0/Chilkat.winmd": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Chilkat.winmd": {}
+        },
+        "native": {
+          "runtimes/win10-x86/native/Chilkat.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -11215,6 +11289,21 @@
     }
   },
   "libraries": {
+    "Chilkat.uwp/9.5.0.62": {
+      "sha512": "x3ahEq1ya8aLqkg3PB6NiYTVPxN4AbrQcr6+Gx8+G1MMCHc/WqTGBOa6j9u+FWeC/B0ghgexFYcGxxLreZIRLA==",
+      "type": "Package",
+      "files": [
+        "[Content_Types].xml",
+        "_rels/.rels",
+        "build/native/Chilkat.uwp.targets",
+        "Chilkat.uwp.nuspec",
+        "lib/uap10.0/Chilkat.winmd",
+        "package/services/metadata/core-properties/d23fe87439e74b2eaffafa1890f5da3a.psmdcp",
+        "runtimes/win10-arm/native/Chilkat.dll",
+        "runtimes/win10-x64/native/Chilkat.dll",
+        "runtimes/win10-x86/native/Chilkat.dll"
+      ]
+    },
     "Microsoft.CSharp/4.0.0": {
       "sha512": "oWqeKUxHXdK6dL2CFjgMcaBISbkk+AqEg+yvJHE4DElNzS4QaTsCflgkkqZwVlWby1Dg9zo9n+iCAMFefFdJ/A==",
       "type": "Package",
@@ -14566,6 +14655,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
+      "Chilkat.uwp >= 9.5.0.62",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0"
     ],
     "UAP,Version=v10.0": []

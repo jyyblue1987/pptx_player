@@ -10,6 +10,7 @@
     <Page.BottomAppBar>
         <AppBar IsOpen="True" IsSticky="True">
             <StackPanel Orientation="Horizontal">
+                <AppBarButton Icon="OpenFile" Label="Open" Click="Open_Click"/>
                 <AppBarButton Icon="RepeatAll" Label="Pitch" Click="Pitch_Click"/>
                 <AppBarButton Icon="Rotate" Label="Roll" Click="Roll_Click"/>
                 <AppBarButton Icon="Refresh" Label="Yaw" Click="Yaw_Click"/>
