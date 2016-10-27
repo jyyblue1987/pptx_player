@@ -173,6 +173,13 @@
                         <input type="text" class="form-control pull-right datepicker">
                     </div>
                 </div>
+                <div class="form-group">
+                    @using (Html.BeginForm("Upload", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <input type="file" name="file" />
+                        <input type="submit" name="Submit" id="Submit" value="Upload" />
+                    }                    
+                </div>
             </div>
         </div>
     </div>
