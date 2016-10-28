@@ -44,6 +44,13 @@ namespace PptxPlayer
             this.InitializeComponent();
 
             lib.setViewer(Display, Prev, Next);
+
+            this.ManipulationStarting += MainPage_ManipulationStarting;
+            this.ManipulationStarted += MainPage_ManipulationStarted;
+            this.ManipulationInertiaStarting += MainPage_ManipulationInertiaStarting;
+            this.ManipulationDelta += MainPage_ManipulationDelta;
+            this.ManipulationCompleted += MainPage_ManipulationCompleted;
+
         }
         private void Go_KeyDown(object sender, KeyRoutedEventArgs e)
         {
@@ -278,6 +285,27 @@ namespace PptxPlayer
                 return;
 
             lib.NextTransition("X", ref Display, ref Prev, ref Next, setSlide(m_nCurrentIndex + 1));            
+        }
+
+        void MainPage_ManipulationStarting(object sender, ManipulationStartingRoutedEventArgs e)
+        {
+            Debug.WriteLine("MainPage_ManipulationStarting");
+        }
+        void MainPage_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
+        {
+            Debug.WriteLine("MainPage_ManipulationStarted");
+        }
+        void MainPage_ManipulationInertiaStarting(object sender, ManipulationInertiaStartingRoutedEventArgs e)
+        {
+            Debug.WriteLine("MainPage_ManipulationInertiaStarting");
+        }
+        void MainPage_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            Debug.WriteLine("MainPage_ManipulationDelta");
+        }
+        void MainPage_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            Debug.WriteLine("MainPage_ManipulationCompleted");
         }
     }
 }
