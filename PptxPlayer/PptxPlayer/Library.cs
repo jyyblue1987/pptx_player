@@ -15,11 +15,18 @@ namespace PptxPlayer
     {
         private bool rotating = false;
         private Storyboard rotaion = new Storyboard();
+        private Image pptview = null;
+
+        public void setViewer(Image viewer)
+        {
+            pptview = viewer;
+        }
         public void Rotate(String axis, ref Image target)
         {
             var bounds = ApplicationView.GetForCurrentView().VisibleBounds;
             var scaleFactor = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
             var size = new Size(bounds.Width * scaleFactor, bounds.Height * scaleFactor);
+            
 
             if (rotating)
             {
@@ -73,6 +80,62 @@ namespace PptxPlayer
                 rotaion.Begin();
                 rotating = true;
             }
+        }
+
+        public void PrevTransition(String axis, ref Image target, String url)
+        {
+            var bounds = ApplicationView.GetForCurrentView().VisibleBounds;
+            var scaleFactor = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
+            var size = new Size(bounds.Width * scaleFactor, bounds.Height * scaleFactor);
+
+            DoubleAnimation animation = new DoubleAnimation();
+            animation.To = 0.0;
+            if (axis == "X")
+                animation.From = -size.Width;
+            else
+                animation.From = -size.Height;
+
+            animation.BeginTime = TimeSpan.FromSeconds(1);
+
+            animation.Completed += (sender, eArgs) =>
+            {
+                //pptview.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url));
+                rotaion.Stop();
+            };
+
+            Storyboard.SetTarget(animation, target);
+            Storyboard.SetTargetProperty(animation, "(UIElement.RenderTransform).(TranslateTransform." + axis + ")");
+            rotaion.Children.Clear();
+            rotaion.Children.Add(animation);
+            rotaion.Begin();
+        }
+
+        public void NextTransition(String axis, ref Image target, String url)
+        {
+            var bounds = ApplicationView.GetForCurrentView().VisibleBounds;
+            var scaleFactor = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
+            var size = new Size(bounds.Width * scaleFactor, bounds.Height * scaleFactor);
+
+            DoubleAnimation animation = new DoubleAnimation();
+            animation.To = 0.0;
+            if (axis == "X")
+                animation.From = size.Width;
+            else
+                animation.From = size.Height;
+
+            animation.BeginTime = TimeSpan.FromSeconds(1);
+            
+            animation.Completed += (sender, eArgs) =>
+            {
+                //pptview.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url));
+                rotaion.Stop();
+            };
+            
+            Storyboard.SetTarget(animation, target);
+            Storyboard.SetTargetProperty(animation, "(UIElement.RenderTransform).(TranslateTransform." + axis + ")");
+            rotaion.Children.Clear();
+            rotaion.Children.Add(animation);
+            rotaion.Begin();               
         }
     }
 }

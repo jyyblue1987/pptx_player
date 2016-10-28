@@ -42,6 +42,8 @@ namespace PptxPlayer
         public MainPage()
         {
             this.InitializeComponent();
+
+            lib.setViewer(Display);
         }
         private void Go_KeyDown(object sender, KeyRoutedEventArgs e)
         {
@@ -112,10 +114,10 @@ namespace PptxPlayer
             }
         }
 
-        private void showSlids(int index)
+        private int showSlids(int index)
         {
             if (m_pathArray == null)
-                return;
+                return 0;
 
             int count = m_pathArray.Count();
             if (index < 0)
@@ -129,6 +131,28 @@ namespace PptxPlayer
 
             string server_path = (string)m_pathArray[m_nCurrentIndex].ToString();
             Display.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(server_path));
+
+            return m_nCurrentIndex;
+        }
+
+        private String getSlide(int index)
+        {
+            if (m_pathArray == null)
+                return "";
+
+            int count = m_pathArray.Count();
+            if (index < 0)
+                index = 0;
+            if (index >= count)
+                index = count - 1; ;
+            m_nCurrentIndex = index;
+
+            Value.Text = (index + 1) + "";
+            page_count.Text = "/" + count;
+
+            string server_path = (string)m_pathArray[m_nCurrentIndex].ToString();
+          
+            return server_path;
         }
 
         public async Task<bool> UploadFile(StorageFile file, string upload_url)
@@ -226,11 +250,13 @@ namespace PptxPlayer
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             showSlids(m_nCurrentIndex - 1);
+            lib.PrevTransition("X", ref Display, "");
         }
 
         private void Next_Click(object sender, RoutedEventArgs e)
         {
             showSlids(m_nCurrentIndex + 1);
+            lib.NextTransition("X", ref Display, "");            
         }
     }
 }
