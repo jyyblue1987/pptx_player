@@ -15,7 +15,11 @@
                 <AppBarButton Icon="Rotate" Label="Roll" Click="Roll_Click"/>
                 <AppBarButton Icon="Refresh" Label="Yaw" Click="Yaw_Click"/>
                 <AppBarButton Icon="Back" Label="Transition" Click="Transition_Click"/>
-                <AppBarButton Icon="Back" Label="Back" Click="Back_Click"/>
+                <AppBarButton Icon="Previous" Label="Back" Click="Back_Click"/>
+                <TextBox Grid.Row="0" Name="Value" InputScope="Number" Width="20" TextAlignment="Center" VerticalAlignment="Center" KeyDown="Go_KeyDown"/>
+                <TextBlock Name="page_count" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" TextWrapping="Wrap" Margin="3">
+                    /
+                </TextBlock>
                 <AppBarButton Icon="Next" Label="Next" Click="Next_Click"/>
             </StackPanel>
         </AppBar>

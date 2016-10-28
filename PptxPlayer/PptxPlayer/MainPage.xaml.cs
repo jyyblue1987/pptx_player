@@ -47,6 +47,7 @@ namespace PptxPlayer
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
             {
+                showSlids(Int32.Parse(Value.Text) - 1);
                 //Display.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(Value.Text));
             }
         }
@@ -122,6 +123,9 @@ namespace PptxPlayer
             if (index >= count)
                 index = count - 1; ;
             m_nCurrentIndex = index;
+
+            Value.Text = (index + 1) + "";
+            page_count.Text = "/" + count;
 
             string server_path = (string)m_pathArray[m_nCurrentIndex].ToString();
             Display.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(server_path));
