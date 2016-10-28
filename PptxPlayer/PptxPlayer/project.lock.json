@@ -1551,6 +1551,17 @@
         "runtime": {
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "WindowsAppStudio.Uwp/1.5.3": {
+        "dependencies": {
+          "Newtonsoft.Json": "[8.0.3, )"
+        },
+        "compile": {
+          "lib/uap10.0/AppStudio.Uwp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/AppStudio.Uwp.dll": {}
+        }
       }
     },
     "UAP,Version=v10.0/win10-arm": {
@@ -3195,6 +3206,17 @@
         "runtime": {
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "WindowsAppStudio.Uwp/1.5.3": {
+        "dependencies": {
+          "Newtonsoft.Json": "[8.0.3, )"
+        },
+        "compile": {
+          "lib/uap10.0/AppStudio.Uwp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/AppStudio.Uwp.dll": {}
+        }
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
@@ -4810,6 +4832,17 @@
         },
         "runtime": {
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
+        }
+      },
+      "WindowsAppStudio.Uwp/1.5.3": {
+        "dependencies": {
+          "Newtonsoft.Json": "[8.0.3, )"
+        },
+        "compile": {
+          "lib/uap10.0/AppStudio.Uwp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/AppStudio.Uwp.dll": {}
         }
       }
     },
@@ -6460,6 +6493,17 @@
         "runtime": {
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "WindowsAppStudio.Uwp/1.5.3": {
+        "dependencies": {
+          "Newtonsoft.Json": "[8.0.3, )"
+        },
+        "compile": {
+          "lib/uap10.0/AppStudio.Uwp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/AppStudio.Uwp.dll": {}
+        }
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
@@ -8075,6 +8119,17 @@
         },
         "runtime": {
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
+        }
+      },
+      "WindowsAppStudio.Uwp/1.5.3": {
+        "dependencies": {
+          "Newtonsoft.Json": "[8.0.3, )"
+        },
+        "compile": {
+          "lib/uap10.0/AppStudio.Uwp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/AppStudio.Uwp.dll": {}
         }
       }
     },
@@ -9725,6 +9780,17 @@
         "runtime": {
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "WindowsAppStudio.Uwp/1.5.3": {
+        "dependencies": {
+          "Newtonsoft.Json": "[8.0.3, )"
+        },
+        "compile": {
+          "lib/uap10.0/AppStudio.Uwp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/AppStudio.Uwp.dll": {}
+        }
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
@@ -11340,6 +11406,17 @@
         },
         "runtime": {
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
+        }
+      },
+      "WindowsAppStudio.Uwp/1.5.3": {
+        "dependencies": {
+          "Newtonsoft.Json": "[8.0.3, )"
+        },
+        "compile": {
+          "lib/uap10.0/AppStudio.Uwp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/AppStudio.Uwp.dll": {}
         }
       }
     }
@@ -14732,13 +14809,56 @@
         "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll",
         "System.Xml.XmlSerializer.nuspec"
       ]
+    },
+    "WindowsAppStudio.Uwp/1.5.3": {
+      "sha512": "Pe+LnYiA8uB1axFUNpNAPLdV2o/QTZFBYbRXv8JUouVfFRwEKnAULQN5nIJbYhUEvIPsI63jA9UwY7m4D95wRw==",
+      "type": "Package",
+      "files": [
+        "[Content_Types].xml",
+        "_rels/.rels",
+        "lib/uap10.0/AppStudio.Uwp.dll",
+        "lib/uap10.0/AppStudio.Uwp.pri",
+        "lib/uap10.0/AppStudio.Uwp/AppStudio.Uwp.xr.xml",
+        "lib/uap10.0/AppStudio.Uwp/Controls/Carousel/Carousel.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Controls/ErrorNotificationControl/ErrorNotificationControl.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Controls/GifControl/GifControl.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Controls/HtmlBlock/HtmlBlock.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Controls/HtmlViewer/HtmlViewer.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Controls/ImageEx/ImageEx.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Controls/Indicator/Indicator.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Controls/Pivorama/Pivorama.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Controls/PropertySet/PropertySet.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Controls/Relativebox/Relativebox.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Controls/ResponsiveGridView/ResponsiveGridView.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Controls/RoundButton/RoundButton.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Controls/SearchBox/SearchBox.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Controls/SectionList/SectionList.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Controls/ShellControl/ShellControl.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Controls/SliderView/SliderView.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Controls/SplitterCard/SplitterCard.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Controls/VariableSizedGrid/VariableSizedGrid.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Controls/Virtualbox/Virtualbox.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Labs/Accordion/Accordion.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Labs/AutoHide/AutoHide.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Labs/Mosaic/Mosaic.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Labs/ResponsiveGridView/ResponsiveGridView.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Labs/ResponsiveRow/ResponsiveRow.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Labs/ResponsiveTextBlock/ResponsiveTextBlock.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Labs/ShapeImage/ShapeImage.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Labs/SlideShow/SlideShow.xbf",
+        "lib/uap10.0/AppStudio.Uwp/Properties/AppStudio.Uwp.rd.xml",
+        "lib/uap10.0/AppStudio.Uwp/Themes/Generic.xbf",
+        "package/services/metadata/core-properties/3edb8d30a26e4ed5bb60386bc1d06cc4.psmdcp",
+        "WindowsAppStudio.Uwp.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     "": [
       "Chilkat.uwp >= 9.5.0.62",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0",
-      "Newtonsoft.Json >= 9.0.1"
+      "Newtonsoft.Json >= 9.0.1",
+      "WindowsAppStudio.Uwp >= 1.5.3"
     ],
     "UAP,Version=v10.0": []
   }

@@ -2,7 +2,8 @@
   "dependencies": {
     "Chilkat.uwp": "9.5.0.62",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
-    "Newtonsoft.Json": "9.0.1"
+    "Newtonsoft.Json": "9.0.1",
+    "WindowsAppStudio.Uwp": "1.5.3"
   },
   "frameworks": {
     "uap10.0": {}

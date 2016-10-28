@@ -5,8 +5,13 @@
     xmlns:local="using:PptxPlayer"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:labs="using:AppStudio.Uwp.Labs"
     mc:Ignorable="d">
-
+    <Page.Resources>
+        <DataTemplate x:Key="ItemTemplate">
+            <Image Source="{Binding Thumbnail}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </DataTemplate>
+    </Page.Resources>
     <Page.BottomAppBar>
         <AppBar IsOpen="True" IsSticky="True">
             <StackPanel Orientation="Horizontal">
@@ -40,6 +45,9 @@
                 </Image.Projection>
             </Image>
         </Grid>
+
+        <labs:SlideShow x:Name="control" ItemsSource="{Binding Items}"
+                        ItemTemplate="{StaticResource ItemTemplate}" DelayInterval="5000" FadeInterval="5000" />
 
     </Grid>
 </Page>
