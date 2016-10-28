@@ -36,6 +36,20 @@ namespace AdminPanel.Controllers
             return RedirectToAction("/Home/Index");
         }
 
+        [HttpPost]
+        public string pptxpost(HttpPostedFile profileImage)
+        {
+            string[] extensions = { ".pptx", ".ppt"};
+            if (!extensions.Any(x => x.Equals(Path.GetExtension(profileImage.FileName.ToLower()), StringComparison.OrdinalIgnoreCase)))
+            {
+                return "";
+            }
+
+            // Other code goes here
+
+            return "/path/to/image.png";
+        }
+
         public void convertPPTXToImages(String path)
         {
             var filename = Path.GetFileNameWithoutExtension(path);

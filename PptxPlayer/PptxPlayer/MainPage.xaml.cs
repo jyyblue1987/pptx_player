@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
+using System.Net.Http.Headers;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -55,35 +57,40 @@ namespace PptxPlayer
                         
             StorageFile file = await openPicker.PickSingleFileAsync();
 
+
             //bool ret = await UploadFile(file, "http://localhost:50174/Upload/Upload");       
-                 
-            Chilkat.Upload upload = new Chilkat.Upload();
 
-            //  Specify the page (ASP, ASP.NET, Perl, Python, Ruby, CGI, etc)
-            //  that will receive and process the HTTP Upload.
-            upload.Hostname = "localhost";
-            upload.Port = 50174;
-            upload.Path = "/Upload/Upload";
-            upload.Ssl = false;
-            
-            
-            //  Add one or more files to be uploaded.            
-            upload.AddFileReference("file", file.Path);
-            
+            //Chilkat.Upload upload = new Chilkat.Upload();
 
-            //  Do the upload.  The method returns when the upload
-            //  is completed.
-            //  This component also includes asynchronous upload capability,
-            //  which is demonstrated in another example.
-            bool success = await upload.BlockingUploadAsync();
-            if (success != true)
-            {
-                Debug.WriteLine(upload.LastErrorText);
-            }
-            else {
-                Debug.WriteLine("Files uploaded!");
-            }
-            
+            ////  Specify the page (ASP, ASP.NET, Perl, Python, Ruby, CGI, etc)
+            ////  that will receive and process the HTTP Upload.
+            //upload.Hostname = "localhost";
+            //upload.Port = 50174;
+            //upload.Path = "/Upload/Upload";
+            //upload.Ssl = false;
+
+
+            ////  Add one or more files to be uploaded.            
+            //upload.AddFileReference("file", file.Path);
+
+
+            ////  Do the upload.  The method returns when the upload
+            ////  is completed.
+            ////  This component also includes asynchronous upload capability,
+            ////  which is demonstrated in another example.
+            //bool success = await upload.BlockingUploadAsync();
+            //if (success != true)
+            //{
+            //    Debug.WriteLine(upload.LastErrorText);
+            //}
+            //else {
+            //    Debug.WriteLine("Files uploaded!");
+            //}
+
+            StorageFile[] array = new StorageFile[1];
+            array[0] = file;
+
+            await UploadFiles(array);
         }
 
 
@@ -113,6 +120,47 @@ namespace PptxPlayer
             catch { return false; }
 
             return false;
+        }
+
+        public async static Task<string> UploadFiles(StorageFile[] files)
+        {
+            try
+            {
+                System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
+                var content = new System.Net.Http.MultipartFormDataContent();
+                foreach (var file in files)
+                {
+                    if (file != null)
+                    {
+                        var streamData = await file.OpenReadAsync();
+                        var bytes = new byte[streamData.Size];
+                        using (var dataReader = new DataReader(streamData))
+                        {
+                            await dataReader.LoadAsync((uint)streamData.Size);
+                            dataReader.ReadBytes(bytes);
+                        }
+                        string fileToUpload = file.Path;
+                        using (var fstream = await file.OpenReadAsync())
+                        {
+                            var streamContent = new System.Net.Http.ByteArrayContent(bytes);
+                            streamContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                            {
+                                Name = "files[]",
+                                FileName = Path.GetFileName(fileToUpload),
+
+                            };
+                            content.Add(streamContent);
+                        }
+                    }
+                }
+                var response = await client.PostAsync(new Uri("http://localhost:50174/Upload/Upload", UriKind.Absolute), content);
+                var contentResponce = await response.Content.ReadAsStringAsync();
+                //var result = JsonConvert.DeserializeObject<API.ResponceUploadFiles.RootObject>(contentResponce);
+                //return result.cache;
+                return "";
+            }
+            catch { return ""; }
+
         }
 
         private void Pitch_Click(object sender, RoutedEventArgs e)
