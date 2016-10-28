@@ -89,17 +89,17 @@ namespace PptxPlayer
             var size = new Size(bounds.Width * scaleFactor, bounds.Height * scaleFactor);
 
             DoubleAnimation animation = new DoubleAnimation();
-            animation.To = 0.0;
+            animation.From = 0.0;
             if (axis == "X")
-                animation.From = -size.Width;
+                animation.To = size.Width;
             else
-                animation.From = -size.Height;
+                animation.To = size.Height;
 
             animation.BeginTime = TimeSpan.FromSeconds(1);
 
             animation.Completed += (sender, eArgs) =>
             {
-                //pptview.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url));
+                pptview.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url));
                 rotaion.Stop();
             };
 
@@ -117,17 +117,17 @@ namespace PptxPlayer
             var size = new Size(bounds.Width * scaleFactor, bounds.Height * scaleFactor);
 
             DoubleAnimation animation = new DoubleAnimation();
-            animation.To = 0.0;
+            animation.From = 0.0;
             if (axis == "X")
-                animation.From = size.Width;
+                animation.To = -size.Width;
             else
-                animation.From = size.Height;
+                animation.To = -size.Height;
 
             animation.BeginTime = TimeSpan.FromSeconds(1);
             
             animation.Completed += (sender, eArgs) =>
             {
-                //pptview.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url));
+                pptview.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url));
                 rotaion.Stop();
             };
             

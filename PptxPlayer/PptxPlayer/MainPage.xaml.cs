@@ -249,14 +249,12 @@ namespace PptxPlayer
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            showSlids(m_nCurrentIndex - 1);
-            lib.PrevTransition("X", ref Display, "");
+            lib.PrevTransition("X", ref Display, getSlide(m_nCurrentIndex - 1));
         }
 
         private void Next_Click(object sender, RoutedEventArgs e)
         {
-            showSlids(m_nCurrentIndex + 1);
-            lib.NextTransition("X", ref Display, "");            
+            lib.NextTransition("X", ref Display, getSlide(m_nCurrentIndex + 1));            
         }
     }
 }
