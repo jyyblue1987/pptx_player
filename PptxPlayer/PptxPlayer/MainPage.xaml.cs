@@ -43,7 +43,7 @@ namespace PptxPlayer
         {
             this.InitializeComponent();
 
-            lib.setViewer(Display);
+            lib.setViewer(Display, Prev, Next);
         }
         private void Go_KeyDown(object sender, KeyRoutedEventArgs e)
         {
@@ -132,13 +132,22 @@ namespace PptxPlayer
             string server_path = (string)m_pathArray[m_nCurrentIndex].ToString();
             Display.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(server_path));
 
+            if (m_nCurrentIndex > 0)
+                Prev.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri((string)m_pathArray[m_nCurrentIndex - 1].ToString()));
+            Prev.Visibility = Visibility.Collapsed;
+            
+            if (m_nCurrentIndex < count - 1)
+                Next.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri((string)m_pathArray[m_nCurrentIndex + 1].ToString()));
+            Next.Visibility = Visibility.Collapsed;
+
             return m_nCurrentIndex;
         }
 
-        private String getSlide(int index)
+        private String [] setSlide(int index)
         {
+            String[] path_array = new String[3];
             if (m_pathArray == null)
-                return "";
+                return path_array;
 
             int count = m_pathArray.Count();
             if (index < 0)
@@ -151,8 +160,17 @@ namespace PptxPlayer
             page_count.Text = "/" + count;
 
             string server_path = (string)m_pathArray[m_nCurrentIndex].ToString();
-          
-            return server_path;
+            path_array[0] = server_path;
+            path_array[1] = server_path;
+            path_array[2] = server_path;
+
+            if (m_nCurrentIndex > 0)
+                path_array[0] = (string)m_pathArray[m_nCurrentIndex - 1].ToString();
+            
+            if (m_nCurrentIndex < count - 1)
+                path_array[2] = (string)m_pathArray[m_nCurrentIndex + 1].ToString();
+            
+            return path_array;
         }
 
         public async Task<bool> UploadFile(StorageFile file, string upload_url)
@@ -249,12 +267,17 @@ namespace PptxPlayer
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            lib.PrevTransition("X", ref Display, getSlide(m_nCurrentIndex - 1));
+            if (m_nCurrentIndex < 0)
+                return;
+            lib.PrevTransition("X", ref Display, ref Prev, ref Next, setSlide(m_nCurrentIndex - 1));
         }
 
         private void Next_Click(object sender, RoutedEventArgs e)
         {
-            lib.NextTransition("X", ref Display, getSlide(m_nCurrentIndex + 1));            
+            if (m_nCurrentIndex >= m_pathArray.Count() - 1 )
+                return;
+
+            lib.NextTransition("X", ref Display, ref Prev, ref Next, setSlide(m_nCurrentIndex + 1));            
         }
     }
 }
