@@ -97,6 +97,8 @@ namespace PptxPlayer
             StorageFile[] array = new StorageFile[1];
             array[0] = file;
 
+            loading_prog.IsActive = true;
+
             String result = await UploadFiles(array);
             try {
                 JObject ret = JObject.Parse(result);
@@ -106,11 +108,11 @@ namespace PptxPlayer
                     return;
 
                 m_pathArray = temp_array;
-
+                loading_prog.IsActive = false;
                 showSlids(0);
             } catch
             {
-
+                loading_prog.IsActive = false;
             }
         }
 
