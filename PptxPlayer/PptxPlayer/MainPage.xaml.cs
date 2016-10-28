@@ -126,19 +126,17 @@ namespace PptxPlayer
                 index = count - 1; ;
             m_nCurrentIndex = index;
 
-            Value.Text = (index + 1) + "";
-            page_count.Text = "/" + count;
-
             string server_path = (string)m_pathArray[m_nCurrentIndex].ToString();
             Display.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(server_path));
 
-            if (m_nCurrentIndex > 0)
-                Prev.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri((string)m_pathArray[m_nCurrentIndex - 1].ToString()));
             Prev.Visibility = Visibility.Collapsed;
-            
-            if (m_nCurrentIndex < count - 1)
-                Next.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri((string)m_pathArray[m_nCurrentIndex + 1].ToString()));
             Next.Visibility = Visibility.Collapsed;
+
+            String [] url_array = setSlide(m_nCurrentIndex);
+            Prev.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url_array[0]));
+            Next.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url_array[2]));
+
+            lib.setImageUrls(url_array);
 
             return m_nCurrentIndex;
         }
@@ -267,7 +265,7 @@ namespace PptxPlayer
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            if (m_nCurrentIndex < 0)
+            if (m_nCurrentIndex < 1)
                 return;
             lib.PrevTransition("X", ref Display, ref Prev, ref Next, setSlide(m_nCurrentIndex - 1));
         }
