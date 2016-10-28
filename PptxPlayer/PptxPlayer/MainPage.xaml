@@ -35,14 +35,26 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+
+            <Image Grid.Row="1" Margin="60" Stretch="Uniform" Name="Prev">
+                <Image.RenderTransform>
+                    <TranslateTransform x:Name="prevTransform" />
+                </Image.RenderTransform>            
+            </Image>
             
             <Image Grid.Row="1" Margin="60" Stretch="Uniform" Name="Display">
                 <Image.RenderTransform>
-                    <TranslateTransform x:Name="rectScaleTransform" />
+                    <TranslateTransform x:Name="displayTransform" />
                 </Image.RenderTransform>
                 <Image.Projection>
                     <PlaneProjection/>
                 </Image.Projection>
+            </Image>
+
+            <Image Grid.Row="1" Margin="60" Stretch="Uniform" Name="Next">
+                <Image.RenderTransform>
+                    <TranslateTransform x:Name="nextTransform" />
+                </Image.RenderTransform>
             </Image>
         </Grid>
 

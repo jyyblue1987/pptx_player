@@ -84,6 +84,14 @@ namespace PptxPlayer
 
         public void PrevTransition(String axis, ref Image target, String url)
         {
+            if (rotating)
+            {
+                stopAnimation(url);
+                return;
+            }
+
+            rotating = true;
+
             var bounds = ApplicationView.GetForCurrentView().VisibleBounds;
             var scaleFactor = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
             var size = new Size(bounds.Width * scaleFactor, bounds.Height * scaleFactor);
@@ -95,12 +103,11 @@ namespace PptxPlayer
             else
                 animation.To = size.Height;
 
-            animation.BeginTime = TimeSpan.FromSeconds(1);
+            animation.BeginTime = TimeSpan.FromSeconds(0);
 
             animation.Completed += (sender, eArgs) =>
             {
-                pptview.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url));
-                rotaion.Stop();
+                stopAnimation(url);
             };
 
             Storyboard.SetTarget(animation, target);
@@ -112,6 +119,14 @@ namespace PptxPlayer
 
         public void NextTransition(String axis, ref Image target, String url)
         {
+            if (rotating)
+            {
+                stopAnimation(url);
+                return;
+            }
+
+            rotating = true;
+
             var bounds = ApplicationView.GetForCurrentView().VisibleBounds;
             var scaleFactor = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
             var size = new Size(bounds.Width * scaleFactor, bounds.Height * scaleFactor);
@@ -123,12 +138,11 @@ namespace PptxPlayer
             else
                 animation.To = -size.Height;
 
-            animation.BeginTime = TimeSpan.FromSeconds(1);
+            animation.BeginTime = TimeSpan.FromSeconds(0);
             
             animation.Completed += (sender, eArgs) =>
             {
-                pptview.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url));
-                rotaion.Stop();
+                stopAnimation(url);
             };
             
             Storyboard.SetTarget(animation, target);
@@ -136,6 +150,14 @@ namespace PptxPlayer
             rotaion.Children.Clear();
             rotaion.Children.Add(animation);
             rotaion.Begin();               
+        }
+
+        private void stopAnimation(String url)
+        {
+            rotaion.Stop();
+            pptview.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url));
+            rotating = false;
+            return;
         }
     }
 }
