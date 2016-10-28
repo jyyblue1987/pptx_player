@@ -19,6 +19,7 @@ namespace PptxPlayer
         private Image pptview = null;
         private Image ppt_prev = null;
         private Image ppt_next = null;
+        private String [] m_urlArray = null;
 
         public void setViewer(Image viewer, Image prev, Image next)
         {
@@ -91,12 +92,13 @@ namespace PptxPlayer
         {
             if (rotating)
             {
-                stopAnimation(url_array);
+                stopAnimation(url_array, 0);
                 return;
             }
 
             rotating = true;
             Prev.Visibility = Visibility.Visible;
+            ppt_next.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url_array[1]));
 
             var bounds = ApplicationView.GetForCurrentView().VisibleBounds;
             var scaleFactor = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
@@ -113,7 +115,7 @@ namespace PptxPlayer
 
             animation.Completed += (sender, eArgs) =>
             {
-                stopAnimation(url_array);
+                stopAnimation(url_array, 0);
             };
 
             Storyboard.SetTarget(animation, target);
@@ -143,9 +145,11 @@ namespace PptxPlayer
         {
             if (rotating)
             {
-                stopAnimation(url_array);
+                stopAnimation(url_array, 1);
                 return;
             }
+
+            ppt_prev.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url_array[1]));
 
             rotating = true;
             Next.Visibility = Visibility.Visible;
@@ -165,7 +169,7 @@ namespace PptxPlayer
             
             animation.Completed += (sender, eArgs) =>
             {
-                stopAnimation(url_array);
+                stopAnimation(url_array, 1);
             };
             
             Storyboard.SetTarget(animation, target);
@@ -191,17 +195,40 @@ namespace PptxPlayer
             rotaion.Begin();
         }
 
-        private void stopAnimation(String [] url_array)
+        private void stopAnimation(String [] url_array, int dir)
+        {
+            if( dir == 0 )  // prev
+            {
+                ppt_prev.Visibility = Visibility.Collapsed;
+                ppt_next.Visibility = Visibility.Visible;                
+            }
+
+            if (dir == 1)  // next
+            {
+                ppt_prev.Visibility = Visibility.Visible;
+                ppt_next.Visibility = Visibility.Collapsed;               
+            }
+
+            m_urlArray = url_array;
+            
+            rotaion.Stop();
+
+            pptview.Visibility = Visibility.Collapsed;
+            
+            pptview.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url_array[1]));
+            pptview.ImageOpened += Pptview_ImageOpened;
+            
+            rotating = false;
+            return;
+        }
+
+        private void Pptview_ImageOpened(object sender, RoutedEventArgs e)
         {
             ppt_prev.Visibility = Visibility.Collapsed;
             ppt_next.Visibility = Visibility.Collapsed;
-            rotaion.Stop();
-            pptview.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url_array[1]));
-            ppt_prev.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url_array[0]));
-            ppt_next.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url_array[2]));
-
-            rotating = false;
-            return;
+            pptview.Visibility = Visibility.Visible;
+            ppt_prev.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(m_urlArray[0]));
+            ppt_next.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(m_urlArray[2]));
         }
     }
 }
