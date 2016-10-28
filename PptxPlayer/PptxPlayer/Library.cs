@@ -98,6 +98,8 @@ namespace PptxPlayer
 
             rotating = true;
             Prev.Visibility = Visibility.Visible;
+
+            // buffering current image to next image control
             ppt_next.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url_array[1]));
 
             var bounds = ApplicationView.GetForCurrentView().VisibleBounds;
@@ -149,6 +151,7 @@ namespace PptxPlayer
                 return;
             }
 
+            // buffering current image to prev image control
             ppt_prev.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url_array[1]));
 
             rotating = true;
@@ -199,13 +202,13 @@ namespace PptxPlayer
         {
             if( dir == 0 )  // prev
             {
-                ppt_prev.Visibility = Visibility.Collapsed;
-                ppt_next.Visibility = Visibility.Visible;                
+                ppt_prev.Visibility = Visibility.Collapsed; 
+                ppt_next.Visibility = Visibility.Visible;   // use buffered prev image control                             
             }
 
             if (dir == 1)  // next
             {
-                ppt_prev.Visibility = Visibility.Visible;
+                ppt_prev.Visibility = Visibility.Visible;  // use buffered next image control
                 ppt_next.Visibility = Visibility.Collapsed;               
             }
 
@@ -213,10 +216,9 @@ namespace PptxPlayer
             
             rotaion.Stop();
 
-            pptview.Visibility = Visibility.Collapsed;
-            
+            pptview.Visibility = Visibility.Collapsed;            
             pptview.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(url_array[1]));
-            pptview.ImageOpened += Pptview_ImageOpened;
+            pptview.ImageOpened += Pptview_ImageOpened; // receive image load callback
             
             rotating = false;
             return;
@@ -224,9 +226,14 @@ namespace PptxPlayer
 
         private void Pptview_ImageOpened(object sender, RoutedEventArgs e)
         {
+            // Image loaded, hide prev, next image control
             ppt_prev.Visibility = Visibility.Collapsed;
             ppt_next.Visibility = Visibility.Collapsed;
-            pptview.Visibility = Visibility.Visible;
+
+            // show true image control
+            pptview.Visibility = Visibility.Visible;    
+
+            // set image url to prev and next image control
             ppt_prev.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(m_urlArray[0]));
             ppt_next.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(m_urlArray[2]));
         }
