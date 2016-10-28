@@ -23,6 +23,8 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
 using System.Net.Http.Headers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -31,19 +33,21 @@ namespace PptxPlayer
     public sealed partial class MainPage : Page
     {
         public Library lib = new Library();
-        private Stream stream = new MemoryStream();
-        private CancellationTokenSource cts;
+        //private Stream stream = new MemoryStream();
+        //private CancellationTokenSource cts;
+
+        private int m_nCurrentIndex = 0;
+        private JToken [] m_pathArray = null; 
 
         public MainPage()
         {
             this.InitializeComponent();
-            cts = new CancellationTokenSource();
         }
         private void Go_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
             {
-                Display.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(Value.Text));
+                //Display.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(Value.Text));
             }
         }
 
@@ -90,9 +94,38 @@ namespace PptxPlayer
             StorageFile[] array = new StorageFile[1];
             array[0] = file;
 
-            await UploadFiles(array);
+            String result = await UploadFiles(array);
+            try {
+                JObject ret = JObject.Parse(result);
+                JToken [] temp_array = ret["foo"].ToArray();
+                
+                if (temp_array.Count() < 1)
+                    return;
+
+                m_pathArray = temp_array;
+
+                showSlids(0);
+            } catch
+            {
+
+            }
         }
 
+        private void showSlids(int index)
+        {
+            if (m_pathArray == null)
+                return;
+
+            int count = m_pathArray.Count();
+            if (index < 0)
+                index = 0;
+            if (index >= count)
+                index = count - 1; ;
+            m_nCurrentIndex = index;
+
+            string server_path = (string)m_pathArray[m_nCurrentIndex].ToString();
+            Display.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(server_path));
+        }
 
         public async Task<bool> UploadFile(StorageFile file, string upload_url)
         {
@@ -155,9 +188,7 @@ namespace PptxPlayer
                 }
                 var response = await client.PostAsync(new Uri("http://localhost:50174/Upload/Upload", UriKind.Absolute), content);
                 var contentResponce = await response.Content.ReadAsStringAsync();
-                //var result = JsonConvert.DeserializeObject<API.ResponceUploadFiles.RootObject>(contentResponce);
-                //return result.cache;
-                return "";
+                return contentResponce;
             }
             catch { return ""; }
 
@@ -188,9 +219,14 @@ namespace PptxPlayer
             lib.Transition("Y", ref Display);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Back_Click(object sender, RoutedEventArgs e)
         {
+            showSlids(m_nCurrentIndex - 1);
+        }
 
+        private void Next_Click(object sender, RoutedEventArgs e)
+        {
+            showSlids(m_nCurrentIndex + 1);
         }
     }
 }
